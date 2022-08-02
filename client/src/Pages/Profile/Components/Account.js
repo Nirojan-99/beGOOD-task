@@ -2,6 +2,9 @@ import { Avatar, Box, Button, TextField, Typography } from "@mui/material";
 import { useState } from "react";
 import PermContactCalendarIcon from "@mui/icons-material/PermContactCalendar";
 
+//modal
+import ChangePassword from "./ChangePassword";
+
 function Account() {
   //error state
   const [emailError, setEmailError] = useState(false);
@@ -9,8 +12,17 @@ function Account() {
   const [nicError, setNicError] = useState(false);
   const [numberError, setNumberError] = useState(false);
   const [passwordError, setPasswordError] = useState(false);
+
+  //modal state
+  const [modalOpen, setModalOpen] = useState(false);
   return (
     <>
+      <ChangePassword
+        open={modalOpen}
+        handleClose={() => {
+          setModalOpen(false);
+        }}
+      />
       <Box
         sx={{ display: "flex", alignItems: "center", justifyContent: "center" }}
       >
@@ -160,7 +172,14 @@ function Account() {
         mt={3.5}
         mb={1}
       >
-        <Button sx={{ textTransform: "none" }}>Change Password</Button>
+        <Button
+          onClick={() => {
+            setModalOpen(true);
+          }}
+          sx={{ textTransform: "none" }}
+        >
+          Change Password
+        </Button>
       </Box>
     </>
   );

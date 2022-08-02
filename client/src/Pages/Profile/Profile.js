@@ -1,13 +1,16 @@
-import { Box, Container, Divider, Paper } from "@mui/material";
+import { Box, Container, Paper } from "@mui/material";
 import Tab from "@mui/material/Tab";
 import TabContext from "@mui/lab/TabContext";
 import TabList from "@mui/lab/TabList";
 import TabPanel from "@mui/lab/TabPanel";
 import { useState } from "react";
+
+//pages
 import Account from "./Components/Account";
 import Vehicle from "./Components/Vehicle";
 import Footer from "../../Components/Footer";
 
+//constant
 const TABS = ["Profile", "Vehicle"];
 
 function Profile(props) {
