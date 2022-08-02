@@ -7,20 +7,21 @@ import {
   Typography,
 } from "@mui/material";
 import { useState } from "react";
+import Footer from "../../../Components/Footer";
 
 function Login() {
   const [emailError, setEmailError] = useState(false);
   const [passwordError, setPasswordError] = useState(false);
   return (
     <>
-      <Box>
+      <Box mb={4}>
         <Container maxWidth="sm">
           <Box
             component={Paper}
-            elevation={1}
+            elevation={2}
             p={3}
             mt={5}
-            sx={{ bgcolor: "#ddd" }}
+            sx={{ bgcolor: "#fff" }}
           >
             <Typography align="center" fontSize={20} letterSpacing={0.3}>
               Welcome Back,
@@ -75,6 +76,9 @@ function Login() {
             </Box>
           </Box>
         </Container>
+      </Box>
+      <Box sx={{ position: "absolute", width: "100%", bottom: 0 }}>
+        <Footer />
       </Box>
     </>
   );

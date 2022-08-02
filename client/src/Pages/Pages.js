@@ -1,7 +1,7 @@
-import { Route, Routes } from "react-router";
+import { Navigate, Route, Routes } from "react-router";
 //pages
-import Login from "./Auth/Login";
-import Register from "./Auth/Register";
+import Login from "./Auth/Login/Login";
+import Register from "./Auth/Register/Register";
 import Error from "./Error/Error";
 import Profile from "./Profile/Profile";
 import Vehicle from "./Vehicle/Vehicle";
@@ -15,7 +15,9 @@ function Pages() {
       <Route path="/profile" element={<Profile />} />
       <Route path="/vehicles" element={<Vehicles />} />
       <Route path="/vehicle/:id" element={<Vehicle />} />
-      <Route path="*" element={<Error />} />
+      <Route path="/vehicle/:id" element={<Vehicle />} />
+      {/* <Route path="*" element={<Error />} /> */}
+      <Route path="*" element={<Navigate replace to="/auth/login" />} />
     </Routes>
   );
 }
