@@ -127,11 +127,11 @@ export default function UserRegister(props) {
             fullWidth
             margin="dense"
             label="Password"
-            error={numberError}
+            error={passwordError}
             FormHelperTextProps={{
               style: { fontWeight: 700, fontFamily: "open sans", color: "red" },
             }}
-            helperText={nicError && "must contain 6 characters"}
+            helperText={passwordError && "must contain 6 characters"}
             inputProps={{
               style: {
                 fontFamily: "open sans",
