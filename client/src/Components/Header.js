@@ -44,7 +44,7 @@ const Header = () => {
             </Typography>
             <Box sx={{ flexGrow: 1 }} />
             <Box sx={{ display: { xs: "flex", md: "flex" } }}>
-              {
+              {false && (
                 <>
                   <Button
                     href="/auth/login"
@@ -54,9 +54,9 @@ const Header = () => {
                       display: "block",
                       // textTransform: "none",
                       fontSize: 15,
-                      fontFamily:"open sans",
-                      color:"#fff",
-                      fontWeight:700
+                      fontFamily: "open sans",
+                      color: "#fff",
+                      fontWeight: 700,
                     }}
                   >
                     Login
@@ -69,19 +69,48 @@ const Header = () => {
                       display: "block",
                       // textTransform: "none",
                       fontSize: 15,
-                      fontFamily:"open sans",
-                      color:"#fff",
-                      fontWeight:700
+                      fontFamily: "open sans",
+                      color: "#fff",
+                      fontWeight: 700,
                     }}
                   >
                     Register
                   </Button>
                 </>
-              }
-              {false && (
-                <Button sx={{ my: 2, color: "black", display: "block" }}>
-                  Logout
-                </Button>
+              )}
+              {true && (
+                <>
+                  <Button
+                    href="/vehicles"
+                    sx={{
+                      my: 2,
+                      color: "black",
+                      display: "block",
+                      // textTransform: "none",
+                      fontSize: 15,
+                      fontFamily: "open sans",
+                      color: "#fff",
+                      fontWeight: 700,
+                    }}
+                  >
+                    Vehicles
+                  </Button>
+                  <Button
+                    onClick={() => {}}
+                    sx={{
+                      my: 2,
+                      color: "black",
+                      display: "block",
+                      // textTransform: "none",
+                      fontSize: 15,
+                      fontFamily: "open sans",
+                      color: "#fff",
+                      fontWeight: 700,
+                    }}
+                  >
+                    Logout
+                  </Button>
+                </>
               )}
             </Box>
 

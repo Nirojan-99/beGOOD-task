@@ -16,8 +16,9 @@ function Pages() {
       <Route path="/vehicles" element={<Vehicles />} />
       <Route path="/vehicle/:id" element={<Vehicle />} />
       <Route path="/vehicle/:id" element={<Vehicle />} />
-      {/* <Route path="*" element={<Error />} /> */}
-      <Route path="*" element={<Navigate replace to="/auth/login" />} />
+      <Route path="/" element={<Navigate replace to="/auth/login" />} />
+      <Route path="*" element={<Error />} />
+      {/* <Route path="*" element={<Navigate replace to="/auth/login" />} /> */}
     </Routes>
   );
 }
