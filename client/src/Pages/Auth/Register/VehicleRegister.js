@@ -77,7 +77,7 @@ export default function VehicleRegister(props) {
             required
             type="text"
             fullWidth
-            margin="dense"
+            margin="dense" 
             label="Chassis Number"
             FormHelperTextProps={{
               style: { fontWeight: 700, fontFamily: "open sans", color: "red" },

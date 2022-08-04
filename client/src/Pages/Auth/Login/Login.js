@@ -8,12 +8,51 @@ import {
 } from "@mui/material";
 import { useState } from "react";
 import Footer from "../../../Components/Footer";
+import axios from "axios";
+import { useNavigate } from "react-router-dom";
+import { toast, ToastContainer } from "react-toastify";
 
 function Login() {
+  //error state
   const [emailError, setEmailError] = useState(false);
   const [passwordError, setPasswordError] = useState(false);
+
+  //hook
+  const navigate = useNavigate();
+
+  //user enter value stste
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+
+  //submit
+  const submitHandler = () => {
+    //url
+    const baseURL = "";
+
+    setEmailError(false);
+    setPasswordError(false);
+
+    if (!email.trim()) {
+      console.log("eee");
+      return setEmailError(true);
+    }
+    if (!password.trim()) {
+      return setPasswordError(true);
+    }
+
+    axios
+      .post(baseURL, { userEmail: email, password })
+      .then((res) => {
+        navigate("/profile", { replace: true });
+      })
+      .catch((er) => {
+        toast("Invalid Credentials", { type: "error" });
+      });
+  };
+
   return (
     <>
+      <ToastContainer />
       <Box mb={4}>
         <Container maxWidth="sm">
           <Box
@@ -34,6 +73,11 @@ function Login() {
                 placeholder="E-mail/Contact No"
                 margin="dense"
                 fullWidth
+                value={email}
+                onChange={(event) => {
+                  setEmail(event.target.value);
+                }}
+                helperText={emailError && "Valid email required"}
                 color="info"
                 error={emailError}
                 autoFocus
@@ -50,6 +94,11 @@ function Login() {
                 placeholder="Password"
                 margin="dense"
                 fullWidth
+                value={password}
+                onChange={(event) => {
+                  setPassword(event.target.value);
+                }}
+                helperText={passwordError && "Valid password required"}
                 color="info"
                 error={passwordError}
                 required
@@ -70,7 +119,12 @@ function Login() {
               </Button>
             </Box>
             <Box my={2}>
-              <Button variant="contained" disableElevation fullWidth>
+              <Button
+                onClick={submitHandler}
+                variant="contained"
+                disableElevation
+                fullWidth
+              >
                 Log In
               </Button>
             </Box>
