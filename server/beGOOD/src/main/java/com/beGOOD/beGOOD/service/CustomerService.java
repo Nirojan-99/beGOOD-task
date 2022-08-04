@@ -25,16 +25,17 @@ public class CustomerService {
 
 	}
 
-	public boolean login(String email, String password) {
+	public String login(String email, String password) {
 		Customer customer = customerRepository.findByUserEmail(email);
+		
 		if (customer != null) {
 			if (customer.getPassword().equals(password)) {
-				return true;
+				return customer.getId();
 			} else {
-				return false;
+				return null;
 			}
 		} else {
-			return false;
+			return null;
 		}
 	}
 

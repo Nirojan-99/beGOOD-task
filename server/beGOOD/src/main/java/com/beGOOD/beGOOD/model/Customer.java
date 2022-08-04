@@ -21,6 +21,12 @@ public class Customer {
 	private String password;
 	private String nic;
 
+	public Customer(String userEmail, String password) {
+		super();
+		this.userEmail = userEmail;
+		this.password = password;
+	}
+
 	public String getId() {
 		return id;
 	}
