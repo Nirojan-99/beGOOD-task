@@ -21,9 +21,9 @@ export default function Register(props) {
 
   function getStepContent(step) {
     switch (step) {
-      case 0:
-        return <UserRegister handleNext={handleNext} />;
       case 1:
+        return <UserRegister handleNext={handleNext} />;
+      case 0:
         return (
           <VehicleRegister handleNext={handleNext} handleBack={handleBack} />
         );

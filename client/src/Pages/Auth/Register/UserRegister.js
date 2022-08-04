@@ -7,6 +7,8 @@ import {
   Paper,
 } from "@mui/material";
 import { useState } from "react";
+import axios from "axios";
+import { toast, ToastContainer } from "react-toastify";
 
 export default function UserRegister(props) {
   //error state
@@ -16,12 +18,58 @@ export default function UserRegister(props) {
   const [numberError, setNumberError] = useState(false);
   const [passwordError, setPasswordError] = useState(false);
 
+  //user data
+  const [email, setEmail] = useState("");
+  const [userName, setUserName] = useState("");
+  const [NIC, setNIC] = useState("");
+  const [number, setNumber] = useState("");
+  const [password, setPassword] = useState("");
+
+  //url
+  const baseURL = "http://localhost:8080/users";
+
   const handleSubmit = () => {
-    props.handleNext();
+    setEmailError(false);
+    setUserError(false);
+    setNicError(false);
+    setNumberError(false);
+    setPasswordError(false);
+
+    if (!email.trim()) {
+      return setEmailError(true);
+    }
+    if (!userName.trim()) {
+      return setUserError(true);
+    }
+    if (!NIC.trim()) {
+      return setNicError(true);
+    }
+    if (!number.trim()) {
+      return setNumberError(true);
+    }
+    if (!password.trim()) {
+      return setPassword(true);
+    }
+
+    axios
+      .post(baseURL, {
+        userName,
+        userEmail: email,
+        contactNo: number,
+        password,
+        nic: NIC,
+      })
+      .then((res) => {
+        props.handleNext();
+      })
+      .catch((er) => {
+        toast("Unable to register", { type: "error" });
+      });
   };
 
   return (
     <>
+      <ToastContainer />
       <Box mt={3} component={Paper} elevation={2} p={2}>
         <Typography align="left" sx={{ color: "#1597BB" }} fontSize={20}>
           Register User
@@ -33,6 +81,10 @@ export default function UserRegister(props) {
             autoFocus
             type="email"
             fullWidth
+            value={email}
+            onChange={(event) => {
+              setEmail(event.target.value);
+            }}
             margin="dense"
             label="Email"
             FormHelperTextProps={{
@@ -57,6 +109,10 @@ export default function UserRegister(props) {
             required
             type="text"
             fullWidth
+            value={userName}
+            onChange={(event) => {
+              setUserName(event.target.value);
+            }}
             margin="dense"
             label="User Name"
             error={userError}
@@ -77,6 +133,10 @@ export default function UserRegister(props) {
             required
             type="text"
             fullWidth
+            value={NIC}
+            onChange={(event) => {
+              setNIC(event.target.value);
+            }}
             margin="dense"
             label="NIC"
             error={nicError}
@@ -101,6 +161,10 @@ export default function UserRegister(props) {
             required
             type="number"
             fullWidth
+            value={number}
+            onChange={(event) => {
+              setNumber(event.target.value);
+            }}
             margin="dense"
             label="Contact Number"
             error={numberError}
@@ -125,6 +189,10 @@ export default function UserRegister(props) {
             required
             type="password"
             fullWidth
+            value={password}
+            onChange={(event) => {
+              setPassword(event.target.value);
+            }}
             margin="dense"
             label="Password"
             error={passwordError}

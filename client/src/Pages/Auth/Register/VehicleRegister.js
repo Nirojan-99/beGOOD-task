@@ -12,10 +12,12 @@ import {
 } from "@mui/material";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import axios from "axios";
+import { useNavigate } from "react-router";
 
 //const data
-const TYPE = ["Car", "3Wheel", "Van", "Lorry", "Bike", "Bus"];
-const FUEL = ["Petrol", "Diesel"];
+const TYPE = ["CAR", "THREEWHEEL", "VAN", "LORRY", "BIKE", "BUS"];
+const FUEL = ["PETROL", "DIESEL"];
 
 export default function VehicleRegister(props) {
   //error state
@@ -23,17 +25,68 @@ export default function VehicleRegister(props) {
   const [chassisError, setChassisError] = useState(false);
   const [vehicleTypeError, setTypeError] = useState(false);
   const [manufacturerError, setManufacturerError] = useState(false);
+  const [fuelTypeError, setFuelTypeError] = useState(false);
 
-  //entered values
+  //user data
+  const [vehicleNumber, setVehicleNumber] = useState("");
+  const [chassissNumber, setChassisNumber] = useState("");
+  const [vehicleType, setVehicleType] = useState("");
+  const [manufacturer, setManufacturer] = useState("");
   const [fuelType, setFuelType] = useState("");
+
+  //url
+  const baseURL = "http://localhost:8080/vehicles";
 
   //select fuel
   const selectFuel = (value) => {
     setFuelType(value);
   };
 
+  //hook
+  const navigate = useNavigate();
+
+  const submitHandler = () => {
+    setBNumberError(false);
+    setChassisError(false);
+    setTypeError(false);
+    setManufacturerError(false);
+    setFuelTypeError(false);
+
+    if (!vehicleNumber.trim()) {
+      return setBNumberError(true);
+    }
+    if (!chassissNumber.trim()) {
+      return setChassisError(true);
+    }
+    if (!manufacturer.trim()) {
+      return setManufacturerError(true);
+    }
+    if (!vehicleType.trim()) {
+      return setTypeError(true);
+    }
+    if (!fuelType.trim()) {
+      return setFuelTypeError(true);
+    }
+
+    axios
+      .post(baseURL, {
+        vehicleNumber,
+        chassisNumber,
+        fuel: fuelType,
+        vehicleType,
+        manufacturer,
+      })
+      .then((res) => {
+        navigate("/profile", { replace: true });
+      })
+      .catch((er) => {
+        toast("Unable to register vehicle", { type: "error" });
+      });
+  };
+
   return (
     <>
+      <ToastContainer />
       <Box mt={3} component={Paper} elevation={2} p={2}>
         <Typography align="left" sx={{ color: "#1597BB" }} fontSize={20}>
           Register Vehicle
@@ -42,6 +95,10 @@ export default function VehicleRegister(props) {
         <Box mt={2} mb={1}>
           <TextField
             required
+            value={vehicleNumber}
+            onChange={(event) => {
+              setVehicleNumber(event.target.value);
+            }}
             autoFocus
             type="text"
             fullWidth
@@ -75,9 +132,13 @@ export default function VehicleRegister(props) {
         <Box mb={1}>
           <TextField
             required
+            value={chassissNumber}
+            onChange={(event) => {
+              setChassisNumber(event.target.value);
+            }}
             type="text"
             fullWidth
-            margin="dense" 
+            margin="dense"
             label="Chassis Number"
             FormHelperTextProps={{
               style: { fontWeight: 700, fontFamily: "open sans", color: "red" },
@@ -99,6 +160,10 @@ export default function VehicleRegister(props) {
         <Box mb={1}>
           <TextField
             required
+            value={manufacturer}
+            onChange={(event) => {
+              setManufacturer(event.target.value);
+            }}
             type="text"
             fullWidth
             margin="dense"
@@ -121,7 +186,15 @@ export default function VehicleRegister(props) {
           />
         </Box>
         <Box mb={2} mt={2}>
-          <Select fullWidth required error={vehicleTypeError}>
+          <Select
+            fullWidth
+            required
+            value={vehicleType}
+            onChange={(event) => {
+              setVehicleType(event.target.value);
+            }}
+            error={vehicleTypeError}
+          >
             {TYPE.map((row, index) => {
               return (
                 <MenuItem
@@ -151,9 +224,14 @@ export default function VehicleRegister(props) {
               />
             );
           })}
+          {fuelTypeError && (
+            <Typography sx={{ fontSize: 12, color: "red", mt: 1 }}>
+              Select fuel type
+            </Typography>
+          )}
         </Box>
         <Box my={3}>
-          <Button fullWidth variant="contained">
+          <Button onClick={submitHandler} fullWidth variant="contained">
             Register
           </Button>
         </Box>
