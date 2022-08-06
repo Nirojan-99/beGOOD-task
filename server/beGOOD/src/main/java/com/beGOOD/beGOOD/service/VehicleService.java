@@ -49,6 +49,7 @@ public class VehicleService {
 	// update vehicle
 	public boolean updateVehicle(Vehicle vehicle) {
 		Vehicle existingvehicle = vehicleRepository.findById(vehicle.getId());
+
 		if (existingvehicle != null) {
 			if (vehicle.getChassisNumber().trim().length() > 0) {
 				existingvehicle.setChassisNumber(vehicle.getChassisNumber());
@@ -67,9 +68,12 @@ public class VehicleService {
 			}
 			if (!(vehicle.getVehicleNumber().equals(existingvehicle.getVehicleNumber()))) {
 				//
-				NumberPlateType numberPlateType = VehiclePlate.checkVersion(vehicle.getVehicleNumber());
-				existingvehicle.setVehicleVersion(numberPlateType);
-				existingvehicle.setVehicleNumber(vehicle.getVehicleNumber());
+				if (VehiclePlate.checkValidity(vehicle.getVehicleNumber())) {
+					NumberPlateType numberPlateType = VehiclePlate.checkVersion(vehicle.getVehicleNumber());
+					existingvehicle.setVehicleVersion(numberPlateType);
+					existingvehicle.setVehicleNumber(vehicle.getVehicleNumber());
+				}
+
 			}
 
 			vehicleRepository.save(existingvehicle);
@@ -81,8 +85,8 @@ public class VehicleService {
 	}
 
 	// delete vehicle
-	public boolean deleteVehicle(Vehicle vehicle) {
-		Vehicle existingvehicle = vehicleRepository.findById(vehicle.getId());
+	public boolean deleteVehicle(String id) {
+		Vehicle existingvehicle = vehicleRepository.findById(id);
 		if (existingvehicle != null) {
 			vehicleRepository.delete(existingvehicle);
 			return true;

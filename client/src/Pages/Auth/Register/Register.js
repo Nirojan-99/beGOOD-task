@@ -6,7 +6,7 @@ import GarageIcon from "@mui/icons-material/Garage";
 import { Container, Box, Stepper, Step, StepLabel } from "@mui/material";
 import Footer from "../../../Components/Footer";
 
-const steps = ["User Registraion", "Vehicle registration"];
+const steps = ["User Registraion", "Vehicle Registration"];
 
 export default function Register(props) {
   const [activeStep, setActiveStep] = useState(0);
@@ -21,9 +21,9 @@ export default function Register(props) {
 
   function getStepContent(step) {
     switch (step) {
-      case 1:
-        return <UserRegister handleNext={handleNext} />;
       case 0:
+        return <UserRegister handleNext={handleNext} />;
+      case 1:
         return (
           <VehicleRegister handleNext={handleNext} handleBack={handleBack} />
         );

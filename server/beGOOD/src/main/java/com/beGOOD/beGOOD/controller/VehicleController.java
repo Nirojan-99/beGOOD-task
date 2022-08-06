@@ -6,6 +6,7 @@ import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.mongodb.repository.Update;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -22,6 +23,7 @@ import com.beGOOD.beGOOD.response.ResponseModel;
 import com.beGOOD.beGOOD.service.VehicleService;
 import com.beGOOD.beGOOD.status.ResponseCode;
 
+@CrossOrigin(origins = "http://localhost:3000")
 @RestController
 @RequestMapping("/vehicles")
 public class VehicleController {
@@ -58,6 +60,7 @@ public class VehicleController {
 
 		}
 	}
+
 
 	@GetMapping("")
 	public ResponseModel getAllVehicles() {
@@ -97,9 +100,10 @@ public class VehicleController {
 
 	}
 
-	@DeleteMapping("")
-	public ResponseModel deleteVehicle(@RequestBody Vehicle vehicle) {
-		boolean res = vehicleService.deleteVehicle(vehicle);
+	@DeleteMapping("/{id}")
+	public ResponseModel deleteVehicle(@PathVariable String id) {
+		System.out.print(id+"ddd");
+		boolean res = vehicleService.deleteVehicle(id);
 
 		if (res) {
 			return new ResponseModel(ResponseCode.OK, null, "Vehicle Deteled", null);

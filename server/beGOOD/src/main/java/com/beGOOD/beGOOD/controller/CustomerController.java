@@ -1,6 +1,7 @@
 package com.beGOOD.beGOOD.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -14,6 +15,7 @@ import com.beGOOD.beGOOD.response.ResponseModel;
 import com.beGOOD.beGOOD.service.CustomerService;
 import com.beGOOD.beGOOD.status.ResponseCode;
 
+@CrossOrigin(origins = "http://localhost:3000")
 @RestController
 @RequestMapping("/users")
 public class CustomerController {
