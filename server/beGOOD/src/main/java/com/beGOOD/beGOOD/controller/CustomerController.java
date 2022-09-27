@@ -45,14 +45,14 @@ public class CustomerController {
 	}
 
 	@PostMapping("/auth")
-	public String login(@RequestBody Customer customer) {
+	public ResponseModel login(@RequestBody Customer customer) {
 
 		String res = customerService.login(customer.getUserEmail(), customer.getPassword());
 
 		if (res != null) {
-			return res;
+			return new ResponseModel(ResponseCode.OK, null, res, null);
 		} else {
-			return null;
+			return new ResponseModel(ResponseCode.NO_CONTENT, null, null, null);
 		}
 
 	}

@@ -12,7 +12,7 @@ function Pages() {
     <Routes>
       <Route path="/auth/login" element={<Login />} />
       <Route path="/auth/register" element={<Register />} />
-      <Route path="/profile" element={<Profile />} />
+      <Route path="/profile/:id" element={<Profile />} />
       <Route path="/vehicles" element={<Vehicles />} />
       <Route path="/vehicle/:id" element={<Vehicle />} />
       <Route path="/vehicle/:id" element={<Vehicle />} />

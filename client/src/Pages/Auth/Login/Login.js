@@ -9,7 +9,7 @@ import {
 import { useState } from "react";
 import Footer from "../../../Components/Footer";
 import axios from "axios";
-import { useNavigate } from "react-router";
+import { useNavigate } from "react-router-dom";
 import { toast, ToastContainer } from "react-toastify";
 
 function Login() {
@@ -41,11 +41,12 @@ function Login() {
     }
 
     axios
-      .post(baseURL, { userEmail: email, password })
+      .post(baseURL, { userEmail: email, password: password })
       .then((res) => {
-        navigate("/profile", { replace: true });
+        navigate(`/profile/${res.data.successMessage}`, { replace: true });
       })
       .catch((er) => {
+        console.log(er);
         toast("Invalid Credentials", { type: "error" });
       });
   };
